@@ -1,5 +1,6 @@
 <?php namespace Shrub;
-
+use \Twig\Twig_Loader_Filesystem;
+use \Twig\Twig_Environment;
 class Shrub {
 	public function test($bool = true)
 	{

@@ -3,6 +3,6 @@
 class Shrub {
 	public function test($bool = true)
 	{
-		return $bool;
+		echo "asd";
 	}
 }

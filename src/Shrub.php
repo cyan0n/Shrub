@@ -3,6 +3,8 @@
 class Shrub {
 	public function test($bool = true)
 	{
-		echo "asd";
+		$loader = new Twig_Loader_Filesystem(__DIR__);
+		$loader->addPath(__DIR__);
+		$twig = new Twig_Environment($loader, array('debug' => true));
 	}
 }

@@ -30,15 +30,19 @@ class Shrub {
 		$this->_context = [];
 	}
 
-	public function addPath(string $dirpath, string $namespace = NULL) : void
+	public function addPath(string $dirpath, string $namespace = "") : void
 	{
 		// Check directory
 		if (file_exists($dirpath)) {
-			$this->_loader->addPath($dirpath, $namespace);
+			if ($namespace == "") {
+				$this->_loader->addPath($dirpath);
+			} else {
+				$this->_loader->addPath($dirpath, $namespace);
+			}			
 			// Re-initialize enviroment
 			$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
 		} else {
-			throw new Exception("$dirpath Directory does not exist", 1);			
+			// throw new Exception("$dirpath Directory does not exist", 1);			
 		}
 	}
 

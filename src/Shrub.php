@@ -1,6 +1,8 @@
 <?php namespace Shrub;
 use \Twig_Loader_Filesystem;
 use \Twig_Environment;
+use \Exception;
+
 class Shrub {
 	private $_loader;
 	private $_twig;

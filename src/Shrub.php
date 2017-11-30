@@ -2,6 +2,7 @@
 use \Twig_Loader_Filesystem;
 use \Twig_Environment;
 class Shrub {
+	private $_loader;
 	private $_twig;
 	private $_context;
 	private $_template;
@@ -12,17 +13,25 @@ class Shrub {
 		}
 		// Base directory
 		$templateDir = rtrim($templateDir, '/');
-		$loader = new Twig_Loader_Filesystem($templateDir);
+		$this->_loader = new Twig_Loader_Filesystem($templateDir);
 		$templateDir .= '/';
 		// Pages
-		$loader->addPath($templateDir . "pages");
+		$this->addPath($templateDir . "pages");
 		// Blocks
-		$loader->addPath($templateDir . "blocks", "block");
+		$this->addPath($templateDir . "blocks", "block");
 		// Macros
-		$loader->addPath($templateDir . "macros", "macro");
+		$this->addPath($templateDir . "macros", "macro");
 		// Views
-		$loader->addPath($templateDir . "views", "view");
+		$this->addPath($templateDir . "views", "view");
 
-		$this->_twig = new Twig_Environment($loader, array('debug' => true));
+		$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
+	}
+
+	public function addPath(string $dirpath, string $namespace = "") : void
+	{
+		// Check directory
+		if (file_exists($dirpath)) {
+			$this->_loader->addPath($dirpath, $namespace);
+		}
 	}
 }

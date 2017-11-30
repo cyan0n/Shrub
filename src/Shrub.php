@@ -7,6 +7,7 @@ class Shrub {
 	private $_loader;
 	private $_twig;
 	private $_context;
+	private $_templateDir;
 	private $_templateName;
 	private $_template;
 
@@ -14,10 +15,14 @@ class Shrub {
 		if ($templateDir == "") {
 			$templateDir = dirname((debug_backtrace())[0]['file']);
 		}
+
 		// Base directory
 		$templateDir = rtrim($templateDir, '/');
 		$this->_loader = new Twig_Loader_Filesystem($templateDir);
 		$templateDir .= '/';
+
+		$this->_templateDir = $templateDir;
+		
 		// Pages
 		$this->addPath($templateDir . "pages");
 		// Blocks
@@ -65,7 +70,7 @@ class Shrub {
 
 	public function getPHP() : string
 	{
-		return static::SanitizeFile($this->_templateName) . ".php";
+		return static::SanitizeFile($this->_templateDir . $this->_templateName) . ".php";
 	}
 
 	public function render() : void

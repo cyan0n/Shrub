@@ -38,7 +38,7 @@ class Shrub {
 			// Re-initialize enviroment
 			$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
 		} else {
-			throw new Exception("Directory does not exist", 1);			
+			throw new Exception("$dirpath Directory does not exist", 1);			
 		}
 	}
 

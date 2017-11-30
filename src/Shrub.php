@@ -5,6 +5,7 @@ class Shrub {
 	private $_loader;
 	private $_twig;
 	private $_context;
+	private $_templateName;
 	private $_template;
 
 	function __construct(string $templateDir = "") {
@@ -39,7 +40,9 @@ class Shrub {
 
 	public function setTemplate (string $template) : void
 	{
-		$this->_template = $this->_twig->load("{$template}.twig");
+		// Sanitize: remove .twig
+		$this->_templateName = static::SanitizeFile($template);
+		$this->_template = $this->_twig->load("{$this->_templateName}.twig");
 	}
 
 	public function addContext (mixed $context, mixed $value = NULL) : void
@@ -52,8 +55,18 @@ class Shrub {
 		}
 	}
 
+	public function getPHP() : string
+	{
+		return static::SanitizeFile($this->_templateName) . ".php";
+	}
+
 	public function render() : void
 	{
 		echo $this->_template->render($this->_context);
+	}
+
+	private static function SanitizeFile(string $filename) : string
+	{
+		return preg_replace('/\\.[^.\\s]{3,4}$/', '', $filename);
 	}
 }

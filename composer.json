@@ -1,5 +1,5 @@
 {
-    "name": "cyan0n/shrub",
+    "name": "Thomas-esimple/shrub",
     "require": {
         "twig/twig": "^2.4"
     },

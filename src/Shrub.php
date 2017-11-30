@@ -28,13 +28,15 @@ class Shrub {
 		$this->_context = [];
 	}
 
-	public function addPath(string $dirpath, string $namespace = "") : void
+	public function addPath(string $dirpath, string $namespace = NULL) : void
 	{
 		// Check directory
 		if (file_exists($dirpath)) {
 			$this->_loader->addPath($dirpath, $namespace);
 			// Re-initialize enviroment
 			$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
+		} else {
+			throw new Exception("Directory does not exist", 1);			
 		}
 	}
 

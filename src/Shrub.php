@@ -24,7 +24,7 @@ class Shrub {
 		// Views
 		$this->addPath($templateDir . "views", "view");
 
-		$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
+		$this->_context = [];
 	}
 
 	public function addPath(string $dirpath, string $namespace = "") : void
@@ -32,6 +32,28 @@ class Shrub {
 		// Check directory
 		if (file_exists($dirpath)) {
 			$this->_loader->addPath($dirpath, $namespace);
+			// Re-initialize enviroment
+			$this->_twig = new Twig_Environment($this->_loader, array('debug' => true));
 		}
+	}
+
+	public function setTemplate (string $template) : void
+	{
+		$this->_template = $this->_twig->load("{$template}.twig");
+	}
+
+	public function addContext (mixed $context, mixed $value = NULL) : void
+	{
+		if (is_array($context)) {
+			$this->_context = array_replace_recursive($this->_context, $context);
+		} else {
+			// TODO: check if context is string OR converto to string
+			$this->_context[$context] = $value;
+		}
+	}
+
+	public function render() : void
+	{
+		echo $this->_template->render($this->_context);
 	}
 }

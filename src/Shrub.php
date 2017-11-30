@@ -70,7 +70,7 @@ class Shrub {
 
 	public function getPHP() : string
 	{
-		return static::SanitizeFile($this->_templateDir . $this->_templateName) . ".php";
+		return static::SanitizeFile($this->_templateDir . "pages/" . $this->_templateName) . ".php";
 	}
 
 	public function render() : void

@@ -6,20 +6,23 @@ class Shrub {
 	private $_context;
 	private $_template;
 
-	function __construct(string $templateDir) {
-		$loader = new Twig_Loader_Filesystem($templateDir);
+	function __construct(string $templateDir = "") {
+		if ($templateDir == "") {
+			$templateDir = dirname((debug_backtrace())[0]['file']);
+		}
 		// Base directory
-		// Blocks
-		// Macros
-		// Views
+		$templateDir = rtrim($templateDir, '/');
+		$loader = new Twig_Loader_Filesystem($templateDir);
+		$templateDir .= '/';
 		// Pages
-	}
-	public function test($bool = true)
-	{
-		print_r(debug_backtrace());
-		return;
-		$loader = new Twig_Loader_Filesystem(__DIR__);
-		$loader->addPath(__DIR__);
-		$twig = new Twig_Environment($loader, array('debug' => true));
+		$loader->addPath($templateDir . "pages");
+		// Blocks
+		$loader->addPath($templateDir . "blocks", "block");
+		// Macros
+		$loader->addPath($templateDir . "macros", "macro");
+		// Views
+		$loader->addPath($templateDir . "views", "view");
+
+		$this->_twig = new Twig_Environment($loader, array('debug' => true));
 	}
 }

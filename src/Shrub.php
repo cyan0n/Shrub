@@ -58,7 +58,7 @@ class Shrub {
 		$this->_template = $this->_twig->load("{$this->_templateName}.twig");
 	}
 
-	public function addContext (mixed $context, mixed $value = NULL) : void
+	public function addContext ($context, $value = NULL) : void
 	{
 		if (is_array($context)) {
 			$this->_context = array_replace_recursive($this->_context, $context);

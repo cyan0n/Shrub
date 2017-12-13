@@ -1,12 +1,12 @@
 {
-    "name": "Thomas-esimple/shrub",
+    "name": "cyan0n/shrub",
     "require": {
         "twig/twig": "^2.4"
     },
     "authors": [
         {
-            "name": "Thomas Cipriani",
-            "email": "thomas.cipriani@esimple.it"
+            "name": "Cyan0n",
+            "email": "cyan0n.dev@gmail.com"
         }
     ],
     "autoload": {
